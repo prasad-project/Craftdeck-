@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import { Check, ChevronRight, CircleHelp, Clock3, Code2, LogOut, Timer, Trophy, Users } from 'lucide-react'
 import './play.css'
 
@@ -12,7 +12,7 @@ const segments = ['correct','wrong','current','empty','empty','empty','empty','e
 function Avatar({ variant='alex' }: { variant?: 'alex'|'riya' }) { return <div className={`match-avatar ${variant}`}><div className="avatar-face"/><div className="avatar-shirt"/></div> }
 function Chip({ children, tone='' }: { children: React.ReactNode; tone?: string }) { return <span className={`match-chip ${tone}`}>{children}</span> }
 
-export default function PlayPage() {
+function PlayContent() {
  const params=useSearchParams(); const router=useRouter(); const room=params.get('room')||'ARN-4F7K'; const [answer,setAnswer]=useState<string|null>('3'); const [exit,setExit]=useState(false)
  return <main className="match-page"><header className="match-topbar"><div className="match-top-inner"><Link href="/arena" className="match-brand"><span>&lt;/&gt;</span><b>Coding Arena</b></Link><i className="match-divider"/><b className="match-title">Python Showdown</b><Chip tone="peach">Room {room}</Chip><Chip>Python</Chip><Chip tone="peach">Medium</Chip><div className="match-actions"><span className="live-pill"><i/>LIVE</span><button className="exit-button" onClick={()=>setExit(true)}>Exit Match</button></div></div></header>
   <div className="match-shell">
@@ -23,6 +23,10 @@ export default function PlayPage() {
   </div>{exit&&<div className="exit-dialog"><div><button onClick={()=>setExit(false)} aria-label="Close">×</button><h2>Leave this match?</h2><p>You will forfeit and your opponent wins.</p><div><button onClick={()=>setExit(false)}>Cancel</button><button className="danger" onClick={()=>router.push('/arena')}>Leave match</button></div></div></div>}
  </main>
 }
+export default function PlayPage() {
+ return <Suspense fallback={<main className="match-page" aria-busy="true"><div className="match-shell"><p className="match-loading">Loading match…</p></div></main>}><PlayContent /></Suspense>
+}
+
 function Player({name,score,correct,you,variant}:{name:string;score:string;correct:string;you?:boolean;variant:'alex'|'riya'}){return <div className={`player-card ${you?'you':''}`}><Avatar variant={variant}/><div><h2>{name} {you&&<Chip>You</Chip>}</h2><p>{correct}</p><Chip tone="success">● Submitted</Chip></div><strong>{score}<small>points</small></strong></div>}
 function SideCard({title,children}:{title:string;children:React.ReactNode}){return <section className="side-card"><h2>{title}</h2>{children}</section>}
 function Tile({label,value,sub}:{label:string;value:string;sub?:string}){return <div className="result-tile"><small>{label}</small><b>{value}</b>{sub&&<span>{sub}</span>}</div>}
