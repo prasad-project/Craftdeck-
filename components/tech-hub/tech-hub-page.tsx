@@ -57,7 +57,6 @@ function HubMasthead({
   savedCount,
   savedOnly,
   onToggleSaved,
-  onShowNewStories,
 }: {
   selectedCategory: string
   onCategoryChange: (category: string) => void
@@ -66,7 +65,6 @@ function HubMasthead({
   savedCount: number
   savedOnly: boolean
   onToggleSaved: () => void
-  onShowNewStories: () => void
 }) {
   const onSearchKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && (event.nativeEvent.isComposing || event.keyCode === 229)) event.preventDefault()
@@ -77,16 +75,6 @@ function HubMasthead({
   return (
     <section className="hub-masthead">
       <div className="hub-container">
-        <div className="hub-heading-row">
-          <div>
-            <h1>Tech Hub</h1>
-            <p>Your daily source for technology, innovation and knowledge.</p>
-          </div>
-          <div className="hub-updated-block">
-            <strong>Wednesday, 11 Nov 2026</strong>
-            <div className="hub-update-badges"><span className="hub-chip hub-chip-green"><i aria-hidden="true"/>Updated 25 min ago</span><button type="button" className="hub-chip hub-chip-orange" onClick={onShowNewStories}>6 new stories · Show</button></div>
-          </div>
-        </div>
         <div className="hub-search-row">
           <form className="hub-search-form" role="search" onSubmit={submitSearch}>
             <Search size={20} aria-hidden="true" />
@@ -251,19 +239,10 @@ export default function TechHubPage() {
     document.getElementById('latest-news')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const showNewStories = () => {
-    setSelectedCategory('Latest News')
-    setActiveTopic(null)
-    setSavedOnly(false)
-    setSortMode('Latest')
-    setVisibleCount(stories.length)
-    document.getElementById('latest-news')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
-
   return (
     <main className="hub-page" id="top">
       <HubNavigation />
-      <HubMasthead selectedCategory={selectedCategory} onCategoryChange={changeCategory} searchQuery={searchQuery} onSearchChange={(value) => { setSearchQuery(value); setVisibleCount(6) }} savedCount={savedCount} savedOnly={savedOnly} onToggleSaved={() => { setSavedOnly((current) => !current); setSelectedCategory('For You'); setActiveTopic(null); setVisibleCount(6) }} onShowNewStories={showNewStories} />
+      <HubMasthead selectedCategory={selectedCategory} onCategoryChange={changeCategory} searchQuery={searchQuery} onSearchChange={(value) => { setSearchQuery(value); setVisibleCount(6) }} savedCount={savedCount} savedOnly={savedOnly} onToggleSaved={() => { setSavedOnly((current) => !current); setSelectedCategory('For You'); setActiveTopic(null); setVisibleCount(6) }} />
       <FeaturedStories featuredStory={featuredStory} sideStories={sideStories} likedIds={likedIds} savedIds={savedIds} onLike={toggleLike} onSave={toggleSave} onShare={shareStory} />
       <LatestNews stories={visibleStories} allCount={filteredStories.length} sortMode={sortMode} onSortChange={setSortMode} likedIds={likedIds} savedIds={savedIds} onLike={toggleLike} onSave={toggleSave} onShare={shareStory} onLoadMore={() => setVisibleCount((count) => count + 6)} hasMore={visibleCount < filteredStories.length} savedOnly={savedOnly} />
       <VideosSection />
