@@ -13,7 +13,7 @@ import {
   topics,
   videos,
 } from './tech-hub-data'
-import { FeaturedStories, PopularLists, StoryCard, VideoCard } from './tech-hub-sections'
+import { PopularLists, StoryCard, VideoCard } from './tech-hub-sections'
 
 type SortMode = 'Latest' | 'Popular' | 'Most Liked'
 
@@ -243,7 +243,6 @@ export default function TechHubPage() {
     <main className="hub-page" id="top">
       <HubNavigation />
       <HubMasthead selectedCategory={selectedCategory} onCategoryChange={changeCategory} searchQuery={searchQuery} onSearchChange={(value) => { setSearchQuery(value); setVisibleCount(6) }} savedCount={savedCount} savedOnly={savedOnly} onToggleSaved={() => { setSavedOnly((current) => !current); setSelectedCategory('For You'); setActiveTopic(null); setVisibleCount(6) }} />
-      <FeaturedStories featuredStory={featuredStory} sideStories={sideStories} likedIds={likedIds} savedIds={savedIds} onLike={toggleLike} onSave={toggleSave} onShare={shareStory} />
       <LatestNews stories={visibleStories} allCount={filteredStories.length} sortMode={sortMode} onSortChange={setSortMode} likedIds={likedIds} savedIds={savedIds} onLike={toggleLike} onSave={toggleSave} onShare={shareStory} onLoadMore={() => setVisibleCount((count) => count + 6)} hasMore={visibleCount < filteredStories.length} savedOnly={savedOnly} />
       <VideosSection />
       <TrendingTopics activeTopic={activeTopic} onTopicChange={changeTopic} />
