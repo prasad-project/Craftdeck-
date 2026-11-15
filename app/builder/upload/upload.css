@@ -331,3 +331,99 @@
     flex-wrap: wrap;
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  .resume-upload-page {
+    color-scheme: dark;
+    color: #e8effb;
+    background-color: #071426;
+    background-image: url('/dark-mode-dot-grid.png');
+    background-repeat: repeat;
+    background-position: top left;
+    background-size: 337px 114px;
+  }
+
+  .resume-upload-header h1,
+  .resume-card-heading h2,
+  .resume-manual-card h2,
+  .resume-drop-title {
+    color: #f2f6fc;
+  }
+
+  .resume-upload-header p,
+  .resume-card-heading p,
+  .resume-manual-card p,
+  .resume-file-rules small,
+  .resume-upload-feedback,
+  .resume-continue-area small,
+  .resume-privacy-note {
+    color: #b9c7dc;
+  }
+
+  .resume-card,
+  .resume-manual-card {
+    border-color: #3a526e;
+    background: rgba(7, 20, 38, 0.94);
+    box-shadow: 0 16px 42px rgba(0, 0, 0, 0.2);
+  }
+
+  .resume-dropzone {
+    border-color: #4b6481;
+    background: rgba(11, 28, 49, 0.9);
+  }
+
+  .resume-dropzone.is-dragging {
+    border-color: #ff9a38;
+    background: rgba(36, 39, 48, 0.96);
+  }
+
+  .resume-dropzone.has-error {
+    border-color: #ff8077;
+  }
+
+  .resume-upload-icon {
+    border-color: #e9790b;
+    background: #312313;
+    color: #ffad55;
+  }
+
+  .resume-file-rules span {
+    border-color: #516782;
+    background: #15253a;
+    color: #e5edf8;
+  }
+
+  .resume-selected-file {
+    border-color: #285a43;
+    background: #102d22;
+    color: #9ce6b9;
+  }
+
+  .resume-selected-size {
+    color: #b9c7dc;
+  }
+
+  .resume-upload-feedback.is-error {
+    color: #ff9e96;
+  }
+
+  .resume-continue-button:disabled {
+    background: #29364a;
+    color: #a3b0c2;
+  }
+
+  .resume-manual-button {
+    border-color: #60738d;
+    background: #0d1c31;
+    color: #f0f4fb;
+  }
+
+  .resume-manual-button:hover {
+    background: #172b45;
+  }
+
+  .resume-upload-page button:focus-visible,
+  .resume-upload-page a:focus-visible {
+    outline-color: #ffae62;
+  }
+}
